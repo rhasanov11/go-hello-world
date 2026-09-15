@@ -33,4 +33,4 @@ jobs:
           docker build -t go-hello-world:latest .
           docker stop my-go-app 2>nul
           docker rm my-go-app 2>nul
-          docker run -d --name my-go-app -p 8080:8080 go-hello-world:latest
+          docker run -d --pull never --name my-go-app -p 8080:8080 go-hello-world:latest
