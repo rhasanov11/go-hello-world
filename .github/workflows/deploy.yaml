@@ -15,6 +15,9 @@ jobs:
       - name: Kodu GitHub-dan çəkmək
         uses: actions/checkout@v4
 
+      - name: Git Safe Directory İcazəsi Verin
+        run: git config --global --add safe.directory *
+
       - name: Asılılıqları yükləmək
         run: go mod download
 
@@ -22,10 +25,11 @@ jobs:
         run: go vet ./...
 
       - name: Go Build yoxlanışı
-        run: go build -v ./...
+        run: go build -buildvcs=false -v ./...
 
       - name: Docker Image Yığmaq və Konteyneri Yeniləmək (CD)
         run: |
+          set PATH=%PATH%;C:\Program Files\Docker\Docker\resources\bin
           docker build -t go-hello-world:latest .
           docker stop my-go-app 2>nul
           docker rm my-go-app 2>nul
