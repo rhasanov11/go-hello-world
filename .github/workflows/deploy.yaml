@@ -8,6 +8,9 @@ jobs:
   full-ci-cd:
     name: Test, Build and Deploy Locally
     runs-on: self-hosted
+    defaults:
+      run:
+        shell: cmd  # PowerShell əvəzinə CMD istifadə edərək Execution Policy bloklanmasını keçirik
     steps:
       - name: Kodu GitHub-dan çəkmək
         uses: actions/checkout@v4
@@ -24,6 +27,6 @@ jobs:
       - name: Docker Image Yığmaq və Konteyneri Yeniləmək (CD)
         run: |
           docker build -t go-hello-world:latest .
-          docker stop my-go-app || true
-          docker rm my-go-app || true
+          docker stop my-go-app || exit 0
+          docker rm my-go-app || exit 0
           docker run -d --name my-go-app -p 8080:8080 go-hello-world:latest
