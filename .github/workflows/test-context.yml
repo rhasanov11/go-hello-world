@@ -21,3 +21,7 @@ jobs:
       
       - name: Check the generated version
         run: echo "Generated version is ${{ steps.my_version_step.outputs.app_tag }}"
+
+      - name: Deployment yes or not
+        if: ${{ githuub.ref == 'refs/heads/main' }}
+        run: echo "Deployment is allowed on the main branch."
