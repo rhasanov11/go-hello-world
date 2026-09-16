@@ -14,3 +14,10 @@ jobs:
           echo "Push edən istifadəçi1: ${{ github.actor }}"
           echo "Commit SHA kodu: ${{ github.sha }}"
           echo "İcra olunan Əməliyyat Sistemi: ${{ runner.os }}"
+      
+      - name: Generate New Version
+        id: my_version_step
+        run: echo "app_tag=v1.2.3" >> $GITHUB_OUTPUT
+      
+      - name: Check the generated version
+        run: echo "Generated version is ${{ steps.my_version_step.outputs.app_tag }}"
