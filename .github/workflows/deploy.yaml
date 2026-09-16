@@ -1,8 +1,8 @@
 name: CI/CD Docker Pipeline
 
 on:
-#   push:
-# #     branches:
+  # push:
+#     branches:
 #       - main      # kod main şaxəsinə push olunanda işə düşsün
 #       - master    # əgər əsas şaxəniz master-dirsə
 

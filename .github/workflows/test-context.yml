@@ -11,6 +11,6 @@ jobs:
       - name: Sistem melumatlarini oxu
         run: |
           echo "Repozitoriya adi: ${{ github.repository }}"
-          echo "Push edən istifadəçi: ${{ github.actor }}"
+          echo "Push edən istifadəçi1: ${{ github.actor }}"
           echo "Commit SHA kodu: ${{ github.sha }}"
           echo "İcra olunan Əməliyyat Sistemi: ${{ runner.os }}"
