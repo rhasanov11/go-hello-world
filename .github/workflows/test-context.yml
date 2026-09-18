@@ -25,3 +25,8 @@ jobs:
       - name: Deployment yes or not
         if: ${{ github.ref == 'refs/heads/main' }}
         run: echo "Deployment is allowed on the main branch."
+
+      - name: Read environment variable
+        env:
+          MY_ENV_VAR: ${{ secrets.MY_SECRET_ENV_VAR }}
+          MY_IP_ADDRESS: ${{ secrets.MY_SECRET_IP_ADDRESS }}
