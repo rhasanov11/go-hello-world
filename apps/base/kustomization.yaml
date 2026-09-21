@@ -4,9 +4,8 @@ kind: Kustomization
 resources:
   - deployment.yaml
 
-commonLabels:
-  app: go-app
-
-images:
-  - name: ghcr.io/rhasanov11/go-hello-world
-    newTag: latest
+# 🎯 DÜZƏLİŞ: commonLabels əvəzinə yeni standart olan 'labels' istifadə edirik
+labels:
+  - includeSelectors: true
+    pairs:
+      app: go-app
