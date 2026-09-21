@@ -41,6 +41,6 @@ spec:
   type: ClusterIP
   selector:
     app: go-app
-  ports:
+  ports:v
     - port: 8080
       targetPort: 8080
