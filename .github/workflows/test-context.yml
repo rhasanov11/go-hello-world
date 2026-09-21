@@ -1,32 +1,32 @@
-name: Kontekst Testi
+# name: Kontekst Testi
 
-on:
-  push:
-    branches: [ "main" ]
+# on:
+#   push:
+#     branches: [ "main" ]
 
-jobs:
-  test-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Sistem melumatlarini oxu
-        run: |
-          echo "Repozitoriya adi: ${{ github.repository }}"
-          echo "Push edən istifadəçi1: ${{ github.actor }}"
-          echo "Commit SHA kodu: ${{ github.sha }}"
-          echo "İcra olunan Əməliyyat Sistemi: ${{ runner.os }}"
+# jobs:
+#   test-job:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Sistem melumatlarini oxu
+#         run: |
+#           echo "Repozitoriya adi: ${{ github.repository }}"
+#           echo "Push edən istifadəçi1: ${{ github.actor }}"
+#           echo "Commit SHA kodu: ${{ github.sha }}"
+#           echo "İcra olunan Əməliyyat Sistemi: ${{ runner.os }}"
       
-      - name: Generate New Version
-        id: my_version_step
-        run: echo "app_tag=v1.2.3" >> $GITHUB_OUTPUT
+#       - name: Generate New Version
+#         id: my_version_step
+#         run: echo "app_tag=v1.2.3" >> $GITHUB_OUTPUT
       
-      - name: Check the generated version
-        run: echo "Generated version is ${{ steps.my_version_step.outputs.app_tag }}"
+#       - name: Check the generated version
+#         run: echo "Generated version is ${{ steps.my_version_step.outputs.app_tag }}"
 
-      - name: Deployment yes or not
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: echo "Deployment is allowed on the main branch."
+#       - name: Deployment yes or not
+#         if: ${{ github.ref == 'refs/heads/main' }}
+#         run: echo "Deployment is allowed on the main branch."
 
-      - name: Read environment variable
-        env:
-          MY_ENV_VAR: ${{ secrets.MY_SECRET_ENV_VAR }}
-          MY_IP_ADDRESS: ${{ secrets.MY_SECRET_IP_ADDRESS }}
+#       - name: Read environment variable
+#         env:
+#           MY_ENV_VAR: ${{ secrets.MY_SECRET_ENV_VAR }}
+#           MY_IP_ADDRESS: ${{ secrets.MY_SECRET_IP_ADDRESS }}
