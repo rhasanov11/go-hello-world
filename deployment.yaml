@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: go-app
-        image: ghcr.io/rhasanov11/go-repo-adi:latest  # Öz image ünvanınızı yazın
+        image:  ghcr.io/rhasanov11/go-hello-world  # Öz image ünvanınızı yazın
         ports:
         - containerPort: 8080
 ---
