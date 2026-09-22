@@ -11,4 +11,4 @@ images:
     
 replicas:
   - name: my-go-app-deployment  # 🎯 Vacib: Bu ad base qovluğundakı deployment.yaml-da yazılan "name" ilə tam eyni olmalıdır!
-    count: 3
+    count: 4
