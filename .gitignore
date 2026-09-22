@@ -1,0 +1,19 @@
+# Kompilyasiya olunmuş binary fayllar (məsələn, Go build nəticəsində yaranan 'main' faylı)
+main
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Vendor qovluğu (əgər istifadə olunursa)
+vendor/
+
+# IDE faylları (VS Code, GoLand və s.)
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Əməliyyat sistemi faylları
+.DS_Store
+Thumbs.db
