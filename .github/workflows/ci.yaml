@@ -26,6 +26,7 @@ jobs:
           context: ./apps/go-app
           file: ./apps/go-app/Dockerfile
           push: false
+          load: true
           tags: 172.17.0.1:5000/my-app:pr-test
 
       - name: Run Trivy Security Scan
