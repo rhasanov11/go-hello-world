@@ -21,7 +21,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: 127.0.0.1:5000/my-app # Lokal registry ünvanınız və layihə adı
+          images: 172.17.0.1:5000/my-app # Lokal registry ünvanınız və layihə adı
           tags: |
             type=raw,value=latest
             type=sha,format=short
