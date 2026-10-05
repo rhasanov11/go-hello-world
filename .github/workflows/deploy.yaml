@@ -28,6 +28,14 @@ jobs:
             type=raw,value=latest
             type=sha,format=short
 
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '172.17.0.1:5000/my-app:latest'
+          format: 'table'
+          exit-code: '0' # Kritik xətalarda pipeline-ı dayandırmaq üçün '1' edə bilərsiniz
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
       - name: Build and push Docker image to Local Registry
         uses: docker/build-push-action@v5
         with:
