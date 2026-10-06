@@ -9,6 +9,6 @@ on:
 
 jobs:
   deploy-to-prod:
-    uses: ./.github/workflows/reusable-pipeline.yml
+    uses: ./github/workflows/reusable-pipeline.yml
     with:
       is_cd: true
