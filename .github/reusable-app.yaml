@@ -1,0 +1,62 @@
+name: Reusable Build & Deploy
+
+on:
+  workflow_call:
+    inputs:
+      is_cd:
+        required: true
+        type: boolean
+        description: "True olarsa registry-ye push ve deploy eder, False olarsa yalniz CI skan eder"
+
+jobs:
+  pipeline:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          config: ./apps/go-app/buildkitd.toml
+
+      # Metadata addımı (Yalnız CD vaxtı işləyir)
+      - name: Extract metadata for Docker
+        if: inputs.is_cd == true
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: 172.17.0.1:5000/my-app
+          tags: |
+            type=raw,value=latest
+            type=sha,format=short
+
+      # Build & Push (CI-da push=false, CD-də push=true)
+      - name: Build Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./apps/go-app
+          file: ./apps/go-app/Dockerfile
+          push: ${{ inputs.is_cd }}
+          load: ${{ !inputs.is_cd }}
+          tags: ${{ inputs.is_cd && steps.meta.outputs.tags || 'go-app:pr-test' }}
+          labels: ${{ inputs.is_cd && steps.meta.outputs.labels || '' }}
+
+      # Yalnız CI vaxtı Trivy skanı
+      - name: Run Trivy Security Scan
+        if: inputs.is_cd == false
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v $HOME/.cache/trivy:/root/.cache/ \
+            aquasec/trivy image --exit-code 0 --severity CRITICAL,HIGH go-app:pr-test
+
+      # Yalnız CD vaxtı Serverdə Deploy
+      - name: Deploy Container on Server
+        if: inputs.is_cd == true
+        run: |
+          docker stop my-app-running || true
+          docker rm my-app-running || true
+          docker pull 172.17.0.1:5000/my-app:latest
+          docker run -d --name my-app-running -p 8080:8080 172.17.0.1:5000/my-app:latest
