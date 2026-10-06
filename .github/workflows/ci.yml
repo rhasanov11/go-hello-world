@@ -2,11 +2,13 @@ name: CI - PR Validation & Scan
 
 on:
   pull_request:
-    branches: [ main ]
-    paths: [ 'apps/go-app/**' ]
+    branches:
+      - main
+    paths:
+      - 'apps/go-app/**'
 
 jobs:
-  validate:
-    uses: ./.github/workflows/reusable-app.yml
+  validate-and-scan:
+    uses: ./.github/workflows/reusable-pipeline.yml
     with:
       is_cd: false

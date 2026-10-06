@@ -2,11 +2,13 @@ name: CD - Production Deployment
 
 on:
   push:
-    branches: [ main ]
-    paths: [ 'apps/go-app/**' ]
+    branches:
+      - main
+    paths:
+      - 'apps/go-app/**'
 
 jobs:
-  deploy:
-    uses: ./.github/workflows/reusable-app.yml
+  deploy-to-prod:
+    uses: ./.github/workflows/reusable-pipeline.yml
     with:
       is_cd: true
