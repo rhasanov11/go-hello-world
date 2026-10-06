@@ -26,8 +26,12 @@ jobs:
           context: ./apps/go-app
           file: ./apps/go-app/Dockerfile
           push: false
-          tags: 172.17.0.1:5000/my-app:pr-test
+          load: true
+          tags: go-app:pr-test
 
       - name: Run Trivy Security Scan
         run: |
-          docker run --rm aquasec/trivy image --insecure --exit-code 1 --severity CRITICAL,HIGH 172.17.0.1:5000/my-app:pr-test
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v $HOME/.cache/trivy:/root/.cache/ \
+            aquasec/trivy image --exit-code 0 --severity CRITICAL,HIGH go-app:pr-test
