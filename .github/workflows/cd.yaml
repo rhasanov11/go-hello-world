@@ -2,45 +2,11 @@ name: CD - Production Deployment
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'apps/go-app/**'
+    branches: [ main ]
+    paths: [ 'apps/go-app/**' ]
 
 jobs:
-  deploy-to-prod:
-    runs-on: self-hosted
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        with:
-          config: ./apps/go-app/buildkitd.toml
-
-      - name: Extract metadata for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: 172.17.0.1:5000/my-app
-          tags: |
-            type=raw,value=latest
-            type=sha,format=short
-
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./apps/go-app
-          file: ./apps/go-app/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Deploy Container on Server
-        run: |
-          docker stop my-app-running || true
-          docker rm my-app-running || true
-          docker pull 172.17.0.1:5000/my-app:latest
-          docker run -d --name my-app-running -p 8080:8080 172.17.0.1:5000/my-app:latest
+  deploy:
+    uses: ./.github/workflows/reusable-app.yml
+    with:
+      is_cd: true
