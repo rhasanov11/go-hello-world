@@ -19,7 +19,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
-          config: ./apps/go-app/buildkitd.toml
+          buildkitd-config: ./apps/go-app/buildkitd.toml
 
       # YALNIZ CD ZAMANI: Metadata (tags, labels) çıxarır
       - name: Extract metadata for Docker
